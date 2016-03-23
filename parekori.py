@@ -26,6 +26,30 @@ def initialize_database():
         if conn is not None:
             conn.close()
 
+def get_connection():
+    conn = getattr(flask.g, '_connection', None)
+    if conn is None:
+        conn = connect()
+        flask.g._connection = conn
+    return conn
+
+def close_connection():
+    conn = getattr(flask.g, '_connection', None)
+    if conn is not None:
+        conn.close()
+
+@app.teardown_appcontext
+def close_connection_on_teardown(exception):
+    close_connection()
+
+def execute(statement, args=()):
+    with get_connection() as conn:
+        with closing(conn.execute(statement, args)) as cursor:
+            return cursor.fetchall()
+
+@app.route('/')
+def index():
+    return 'Hello, World!'
 
 if __name__ == '__main__':
     initialize_database()
