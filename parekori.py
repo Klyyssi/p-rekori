@@ -49,7 +49,7 @@ def execute(statement, args=()):
 
 @app.route('/')
 def index():
-    return 'Hello, World!'
+    return flask.render_template('index.html')
 
 if __name__ == '__main__':
     initialize_database()

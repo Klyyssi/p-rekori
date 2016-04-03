@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block head %}
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <title>{% block title %}{% endblock %}{% if self.title() %} &mdash; {% endif %}Pärekori</title>
+    {% endblock %}
+  </head>
+  <body>
+    {% block body %}
+    <header id="header">
+        {% block header %}
+        {% endblock %}
+    </header>
+    <footer id="footer">
+        {% block footer %}
+        {% endblock %}
+    </footer>
+    {% endblock %}
+  </body>
+</html>
