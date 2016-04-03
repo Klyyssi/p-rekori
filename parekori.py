@@ -1,6 +1,7 @@
 import sqlite3
 import flask
 from contextlib import closing
+from main_page import main_page
 
 DEBUG = True
 DATABASE = './parekori.db'
@@ -10,6 +11,7 @@ SECRET_KEY = 'development key'
 
 app = flask.Flask(__name__)
 app.config.from_object(__name__)
+app.register_blueprint(main_page)
 
 def connect():
     return sqlite3.connect(app.config['DATABASE'])
@@ -46,10 +48,6 @@ def execute(statement, args=()):
     with get_connection() as conn:
         with closing(conn.execute(statement, args)) as cursor:
             return cursor.fetchall()
-
-@app.route('/')
-def index():
-    return flask.render_template('index.html')
 
 if __name__ == '__main__':
     initialize_database()
