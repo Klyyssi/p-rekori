@@ -4,7 +4,7 @@
     <div class="">
     	<ul class="notes">
 	    	{% for note in notes %}
-				<li><h2>{{ note.id_ }}</h2>{{ note.content_|safe }}
+				<li><h2>{{ note.id }}</h2>{{ note.content|safe }}
 			{% endfor %}
 		</ul>
     </div>
