@@ -2,7 +2,10 @@
 {% block body %}
     {{ super() }}
     <div class="">
-      <article>
-      </article>
+    	<ul class="notes">
+	    	{% for note in notes %}
+				<li><h2>{{ note.id_ }}</h2>{{ note.content_|safe }}
+			{% endfor %}
+		</ul>
     </div>
 {% endblock %}
