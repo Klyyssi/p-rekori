@@ -45,8 +45,7 @@ def close_connection_on_teardown(exception):
 
 def execute(statement, args=()):
     with get_connection() as conn:
-        with closing(conn.execute(statement, args)) as cursor:
-            return cursor.fetchall()
+        conn.execute(statement, args)
 
 app.register_blueprint(get_main_page_routes(execute))
 
