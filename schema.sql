@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS tag_categories_ (
 CREATE TABLE IF NOT EXISTS tags_ (
     id_ integer PRIMARY KEY,
     category_ integer, -- foreign key references tag_categories_
-    name_ text NOT NULL
+    name_ text UNIQUE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS notes_ (
