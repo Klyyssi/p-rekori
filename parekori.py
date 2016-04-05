@@ -47,7 +47,7 @@ def execute(statement, args=()):
     with get_connection() as conn:
         conn.execute(statement, args)
 
-app.register_blueprint(get_main_page_routes(execute))
+app.register_blueprint(get_main_page_routes(get_connection))
 
 if __name__ == '__main__':
     initialize_database()
