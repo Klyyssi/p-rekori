@@ -1,21 +1,22 @@
-CREATE TABLE IF NOT EXISTS snippet_types_ (
+CREATE TABLE IF NOT EXISTS tag_categories_ (
     id_ integer PRIMARY KEY,
     name_ text
 );
 
-CREATE TABLE IF NOT EXISTS snippets_ (
+CREATE TABLE IF NOT EXISTS tags_ (
     id_ integer PRIMARY KEY,
-    type_ integer NOT NULL, -- foreign key references snippet_types_
-    content_ text NOT NULL
+    category_ integer, -- foreign key references tag_categories_
+    name_ text NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS notes_ (
     id_ integer PRIMARY KEY,
-    summary_ integer -- foreign key references snippets_
+    subject_ text,
+    body_ text
 );
 
-CREATE TABLE IF NOT EXISTS note_snippets_ (
-    note_ integer, -- foreign key references notes_
-    snippet_ integer, -- foreign key references snippets_
-    PRIMARY KEY (note_, snippet_)
+CREATE TABLE IF NOT EXISTS note_tags_ (
+    note_ integer NOT NULL, -- foreign key references notes_
+    tag_ integer NOT NULL, -- foreign key references tags_
+    PRIMARY KEY (note_, tag_)
 ) WITHOUT ROWID;
