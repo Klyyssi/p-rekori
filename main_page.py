@@ -23,7 +23,7 @@ def get_main_page_routes(get_connection):
         if flask.request.method == 'GET':
             with get_connection() as conn:
                 args = {}
-                args{'tags'} = conn.execute("""\
+                args['tags'] = conn.execute("""\
                     SELECT id_ AS "%s", name_ AS "%s" FROM tags_
                         WHERE id_ = coalesce(%s, id_) ORDER BY id_""",
                     ('id', 'name', id)).fetchall()
