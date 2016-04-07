@@ -14,7 +14,8 @@ def get_main_page_routes(get_connection):
             args['notes'] = conn.execute("""\
                 SELECT id_ AS "id", subject_ AS "subject", body_ AS "body"
                     FROM notes_ ORDER BY id_""").fetchall()
-        return render_template("index.html", **args)
+        # return render_template("index.html", **args)
+        return flask.json.dumps(args['notes'])
 
     @main_page.route('/tags/', methods=['GET', 'POST'], defaults={'id': None})
     @main_page.route('/tags/<int:id>', methods=['GET', 'PUT', 'DELETE'])
@@ -28,7 +29,8 @@ def get_main_page_routes(get_connection):
                         WHERE id_ = coalesce(?, id_) ORDER BY id_""",
                     (id,)).fetchall()
 
-            return render_template("tags.html", **args)
+            # return render_template("tags.html", **args)
+            return flask.json.dumps(args['tags'])
         elif flask.request.method == 'POST':
             # TODO: Implement adding of new tags
             pass
