@@ -1,3 +1,4 @@
+import flask
 from flask import Blueprint, render_template
 
 def get_main_page_routes(get_connection):
@@ -42,7 +43,7 @@ def get_main_page_routes(get_connection):
                 conn.execute('DELETE FROM note_tags WHERE tag_ = %s', (id,))
             # FIXME: look up appropriate return code for DELETE
             return "OK"
-        else
+        else:
             # FIXME: should never occur, assert or raise something
             pass
 
