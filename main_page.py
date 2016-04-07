@@ -9,12 +9,11 @@ def get_main_page_routes(get_connection):
         with get_connection() as conn:
             args = {}
             args['tags'] = conn.execute("""\
-                SELECT id_ AS "%s", name_ AS "%s" FROM tags_ ORDER BY id_""",
-                ('id', 'name')).fetchall()
-            args['notes'] = conn.execute("""\
-                SELECT id_ AS "%s", subject_ AS "%s", body_ AS "%s"
-                    FROM notes_ ORDER BY id_""", ('id', 'subject', 'body')
+                SELECT id_ AS "id", name_ AS "name" FROM tags_ ORDER BY id_"""
             ).fetchall()
+            args['notes'] = conn.execute("""\
+                SELECT id_ AS "id", subject_ AS "subject", body_ AS "body"
+                    FROM notes_ ORDER BY id_""").fetchall()
         return render_template("index.html", **args)
 
     @main_page.route('/tags/', methods=['GET', 'POST'], defaults={'id': None})
@@ -25,9 +24,9 @@ def get_main_page_routes(get_connection):
             with get_connection() as conn:
                 args = {}
                 args['tags'] = conn.execute("""\
-                    SELECT id_ AS "%s", name_ AS "%s" FROM tags_
-                        WHERE id_ = coalesce(%s, id_) ORDER BY id_""",
-                    ('id', 'name', id)).fetchall()
+                    SELECT id_ AS "id", name_ AS "name" FROM tags_
+                        WHERE id_ = coalesce(?, id_) ORDER BY id_""",
+                    (id,)).fetchall()
 
             return render_template("tags.html", **args)
         elif flask.request.method == 'POST':
@@ -39,8 +38,8 @@ def get_main_page_routes(get_connection):
         elif flask.request.method == 'DELETE':
             # FIXME: assert that id is nonnegative integer
             with get_connection() as conn:
-                conn.execute('DELETE FROM tags_ WHERE id_ = %s', (id,))
-                conn.execute('DELETE FROM note_tags WHERE tag_ = %s', (id,))
+                conn.execute('DELETE FROM tags_ WHERE id_ = ?', (id,))
+                conn.execute('DELETE FROM note_tags WHERE tag_ = ?', (id,))
             # FIXME: look up appropriate return code for DELETE
             return "OK"
         else:
