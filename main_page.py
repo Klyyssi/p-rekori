@@ -8,12 +8,15 @@ def get_main_page_routes(get_connection):
     def index():
         with get_connection() as conn:
             args = {}
-            args['tags'] = conn.execute("""\
-                SELECT id_ AS "id", name_ AS "name" FROM tags_ ORDER BY id_"""
-            ).fetchall()
-            args['notes'] = conn.execute("""\
+            args['tags'] = []
+            for r in conn.execute("""\
+                SELECT id_ AS "id", name_ AS "name" FROM tags_ ORDER BY id_"""):
+                args['tags'].append(dict(zip(r.keys(), r)))
+            args['notes'] = []
+            for r in conn.execute("""\
                 SELECT id_ AS "id", subject_ AS "subject", body_ AS "body"
-                    FROM notes_ ORDER BY id_""").fetchall()
+                    FROM notes_ ORDER BY id_"""):
+                args['notes'].append(dict(zip(r.keys(), r)))
         # return render_template("index.html", **args)
         return flask.json.dumps(args['notes'])
 
@@ -24,10 +27,11 @@ def get_main_page_routes(get_connection):
         if flask.request.method == 'GET':
             with get_connection() as conn:
                 args = {}
-                args['tags'] = conn.execute("""\
+                args['tags'] = []
+                for r in conn.execute("""\
                     SELECT id_ AS "id", name_ AS "name" FROM tags_
-                        WHERE id_ = coalesce(?, id_) ORDER BY id_""",
-                    (id,)).fetchall()
+                        WHERE id_ = coalesce(?, id_) ORDER BY id_""", (id,)):
+                    args['tags'].append(dict(zip(r.keys(), r)))
 
             # return render_template("tags.html", **args)
             return flask.json.dumps(args['tags'])

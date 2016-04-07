@@ -13,7 +13,9 @@ app = flask.Flask(__name__)
 app.config.from_object(__name__)
 
 def connect():
-    return sqlite3.connect(app.config['DATABASE'])
+    conn = sqlite3.connect(app.config['DATABASE'])
+    conn.row_factory = sqlite3.Row
+    return conn
 
 def initialize_database():
     conn = None
