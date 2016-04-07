@@ -32,7 +32,6 @@ def get_main_page_routes(get_connection):
                     SELECT id_ AS "id", name_ AS "name" FROM tags_
                         WHERE id_ = coalesce(?, id_) ORDER BY id_""", (id,)):
                     args['tags'].append(dict(zip(r.keys(), r)))
-
             # return render_template("tags.html", **args)
             return flask.json.dumps(args['tags'])
         elif flask.request.method == 'POST':
