@@ -19,4 +19,17 @@
             </ul>
         </div>
     </section>
+    <section>
+    <h2>Lisää uusi muistiinpano</h2>
+    <form action="notes" method="post">
+        <label for="tags-input">Avainsanat:</label>
+        <input id="tags-input" name="tags">
+        <label for="subject-input">Aihe:</label>
+        <input id="subject-input" name="subject">
+        <label for="body-input">Sisältö:</label>
+        <textarea rows="5" cols="40" id="body-input" name="body"></textarea>
+        <label></label>
+        <input type="submit" value="Lisää" />
+    </form>
+    </section>
 {% endblock %}
