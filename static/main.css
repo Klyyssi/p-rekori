@@ -3,3 +3,23 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+.id-field {
+  display: none;
+}
+
+section {
+    width: 95%;
+    margin: auto;
+    padding: 10px;
+}
+
+div#tags {
+    width: 50%;
+    height: 200px;
+    float: left;
+}
+
+div#notes {
+    height: 200px;
+}
