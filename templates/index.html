@@ -1,11 +1,22 @@
 {% extends "layout.html" %}
 {% block body %}
     {{ super() }}
-    <div class="">
-    	<ul class="notes">
-	    	{% for note in notes %}
-				<li><h2>{{ note.id }}</h2>{{ note.content|safe }}
-			{% endfor %}
-		</ul>
-    </div>
+    <section>
+        <div id="tags">
+            <h2>Avainsanat</h2>
+            <ul class="tags">
+                {% for tag in tags %}
+                <li><span class="id-field">{{tag.id}}</span>{{tag.name|safe}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div id="notes">
+            <h2>Muistiinpanot</h2>
+            <ul class="notes">
+                {% for note in notes %}
+                <li><span class="id-field">{{ note.id }}</span>{{ note.subject|safe }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
 {% endblock %}
