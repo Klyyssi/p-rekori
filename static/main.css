@@ -11,10 +11,19 @@ section {
 
 div#tags {
     width: 50%;
-    height: 200px;
     float: left;
+    max-height: 200px;
 }
 
 div#notes {
-    height: 200px;
+    max-height: 200px;
+}
+
+form label {
+    width:120px;
+    clear:left;
+}
+
+form input, form label, form textarea {
+    float:left;
 }
